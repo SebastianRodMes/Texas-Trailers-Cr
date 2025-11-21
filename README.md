@@ -27,7 +27,7 @@ This project is a **learning-focused** web application that serves as a public c
 - ✅ Promotion scheduling
 - ✅ Analytics dashboard
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### Frontend
 - **React 18** - UI Library
