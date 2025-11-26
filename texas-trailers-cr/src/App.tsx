@@ -1,45 +1,23 @@
-import { useCategories } from './hooks/useCategories';
-import './App.css';
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
+import Hero from './components/home/Hero';
+import CategoriesSection from './components/home/CategoriesSection';
+import FeaturedProducts from './components/home/FeaturedProducts';
+import CallToAction from './components/home/CallToAction';
 
-function App() {
-  const { categories, loading, error } = useCategories();
-
-  if (loading) {
-    return <div>🔄 Loading categories...</div>;
-  }
-
-  if (error) {
-    return <div>❌ {error}</div>;
-  }
-
+export default function App() {
   return (
-    <div className="App">
-      <h1>🤠 Texas Trailers CR</h1>
-      <h2>Categories</h2>
-      
-      <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-        {categories.map(category => (
-          <div 
-            key={category.id} 
-            style={{ 
-              border: '1px solid #ccc', 
-              padding: '20px', 
-              borderRadius: '8px',
-              width: '250px'
-            }}
-          >
-            <img 
-              src={category.imageUrl} 
-              alt={category.name}
-              style={{ width: '100%', borderRadius: '4px' }}
-            />
-            <h3>{category.name}</h3>
-            <p>Order: {category.order}</p>
-          </div>
-        ))}
-      </div>
+    <div className="min-h-screen bg-white font-sans text-zinc-900 selection:bg-[#c41e3a] selection:text-white">
+      <Header />
+
+      <main>
+        <Hero />
+        <CategoriesSection />
+        <FeaturedProducts />
+        <CallToAction />
+      </main>
+
+      <Footer />
     </div>
   );
 }
-
-export default App;
