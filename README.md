@@ -1,267 +1,234 @@
-# Textas Trailers Cr Catalog - Web Application/mobile
+Texas Trailers CR | Digital Ecosystem
 
-A modern web application for browsing and managing trailer products, built with React, TypeScript, and Firebase.
+<!--  Replace later with the link above with a real collage: Web on Laptop (Left), App on Mobile (Right) -->
 
-## Project Overview
+<div align="center">
 
-This project is a **learning-focused** web application that serves as a public catalog for trailer sales. It consists of two main parts:
+A comprehensive B2C and B2B solution for trailer import and sales in Costa Rica.
 
-- **Web Application (React + TypeScript)**: Public-facing product catalog
-- **Mobile Application**: Admin panel for product management
+Live Demo • Report Bug
 
-## Features
+</div>
 
-### Web Application (Public)
-- ✅ Product catalog with categories
-- ✅ Advanced filtering and search
-- ✅ Detailed product specifications
-- ✅ Accessories section
-- ✅ Discount and promotion system
-- ✅ Responsive design
-- ✅ Black Friday special events
+ Project Vision
 
-### Mobile Application (Admin)
-- ✅ Product CRUD operations
-- ✅ Category management
-- ✅ Image upload and management
-- ✅ Promotion scheduling
-- ✅ Analytics dashboard
+Texas Trailers CR modernizes the operations of a leading import company, transforming a manual, decentralized sales process into a unified digital experience.
 
-##  Tech Stack
+The system resolves data fragmentation through a distributed hybrid architecture:
 
-### Frontend
-- **React 18** - UI Library
-- **TypeScript** - Type safety
-- **Vite** - Build tool and dev server
-- **CSS Modules / Tailwind** - Styling (TBD)
+Public Web App (This Repo): High-performance catalog for end customers.
 
-### Backend & Services
-- **Firebase Firestore** - NoSQL database
-- **Firebase Storage** - Image storage
-- **Firebase Authentication** - Admin auth (mobile)
+Mobile App (Private/External Repo): Field operations management tool for staff.
 
-## Project Structure
+Business Impact
 
-```
-remolques-web/
-├── src/
-│   ├── components/       # React components
-│   │   ├── common/      # Reusable components
-│   │   ├── products/    # Product-related components
-│   │   └── layout/      # Layout components
-│   ├── config/          # Configuration files
-│   │   └── firebase.ts  # Firebase initialization
-│   ├── hooks/           # Custom React hooks
-│   │   └── useProducts.ts
-│   ├── services/        # API/Firebase services
-│   │   └── productService.ts
-│   ├── types/           # TypeScript type definitions
-│   │   └── product.types.ts
-│   ├── pages/           # Page components
-│   ├── utils/           # Utility functions
-│   ├── App.tsx          # Main app component
-│   └── main.tsx         # Entry point
-├── public/              # Static assets
-├── .env.example         # Environment variables template
-├── .gitignore
-├── package.json
-├── tsconfig.json
-├── vite.config.ts
-└── README.md
-```
+Inventory Centralization: Eliminated stock inconsistencies between the sales yard and digital channels.
 
-##  Getting Started
+Sales Optimization: 24/7 catalog availability with advanced filtering, reducing customer inquiry time.
 
-### Prerequisites
+Real-Time Management: Admins can update prices and upload photos from mobile devices the moment a container arrives.
 
-- Node.js >= 18.x
-- npm or yarn
-- Firebase account
+ Roadmap & Evolution
 
-### Installation
+This project bridges academic requirements with real-world business needs. Currently, the architecture is decoupled to meet specific native mobile development educational goals.
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/SebastianRodMes/Texas-Trailers-Cr.git
-   cd remolques-web
-   ```
+Phase
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+Status
 
-3. **Set up environment variables**
-   
-   Copy `.env.example` to `.env` and fill in your Firebase credentials:
-   ```bash
-   cp .env.example .env
-   ```
+Description
 
-   Edit `.env`:
-   ```env
-   VITE_FIREBASE_API_KEY=your_api_key
-   VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
-   VITE_FIREBASE_PROJECT_ID=your_project_id
-   VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
-   VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-   VITE_FIREBASE_APP_ID=your_app_id
-   ```
+Phase 1 (Current)
 
-4. **Run the development server**
-   ```bash
-   npm run dev
-   ```
+🟢 Completed
 
-   Open [http://localhost:5173](http://localhost:5173) in your browser.
+Hybrid Architecture: Read-Only Web (Customers) and Write-Heavy Native Android App (Admin).
 
-## Firebase Setup
+Phase 2
 
-### 1. Create a Firebase Project
+🟡 In Progress
 
-1. Go to [Firebase Console](https://console.firebase.google.com/)
-2. Click "Add project"
-3. Follow the setup wizard
+Service Integration: Push notifications for offers and web reservation system.
 
-### 2. Enable Firestore
+Phase 3 (Future)
 
-1. Navigate to **Firestore Database**
-2. Click "Create database"
-3. Start in **test mode** (change security rules later)
-4. Choose a location
+🔴 Pending
 
-### 3. Enable Storage
+Web Unification: Migration of the mobile admin panel to a React Web Dashboard for centralized cross-platform management.
 
-1. Navigate to **Storage**
-2. Click "Get started"
-3. Use default security rules for now
+Software Architecture
 
-### 4. Firestore Data Structure
+The system implements a BaaS (Backend-as-a-Service) pattern using the Google Firebase ecosystem as the central core, enabling two distinct applications (Web and Mobile) to operate on the same data in real-time.
 
-```typescript
-// collections structure
-{
-  "categories": {
-    "id": {
-      "name": "Enclosed Trailers",
-      "order": 1,
-      "active": true,
-      "imageUrl": "https://...",
-      "createdAt": Timestamp
-    }
-  },
-  
-  "products": {
-    "id": {
-      "name": "Cargo Trailer 6x12",
-      "categoryId": "category_ref",
-      "description": "High-quality enclosed trailer...",
-      "specs": {
-        "dimensions": "6x12x6",
-        "capacity": "2000 lbs",
-        "axles": "single"
-      },
-      "images": ["url1", "url2"],
-      "price": 5000,
-      "discount": {
-        "active": true,
-        "percentage": 15,
-        "startDate": Timestamp,
-        "endDate": Timestamp
-      },
-      "active": true,
-      "createdAt": Timestamp,
-      "views": 0
-    }
-  },
-  
-  "accessories": {
-    "id": {
-      "name": "LED Light Kit",
-      "price": 150,
-      "compatibleWith": ["trailer_id1", "trailer_id2"],
-      "images": ["url"],
-      "active": true
-    }
-  }
-}
-```
+graph TD
+    %% Actors
+    Admin(" Admin / Staff")
+    Cliente(" End Customer")
 
-## Available Scripts
+    %% Subsystems
+    subgraph RepoWeb ["Repo: Web App (Public)"]
+        direction TB
+        WebApp(" Web App (Catalog)<br/>React + TypeScript")
+    end
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm run preview` | Preview production build |
-| `npm run lint` | Run ESLint |
-| `npm run type-check` | Check TypeScript types |
+    subgraph RepoMovil ["Repo: Mobile App (Private)"]
+        direction TB
+        MobileApp(" Mobile App (Admin Panel)<br/>Native Android (Kotlin)")
+    end
 
-## Development Roadmap
+    subgraph FirebaseServices [" Firebase Cloud Ecosystem"]
+        direction TB
+        Auth(" Authentication<br/>(RBAC)")
+        DB(" Firestore<br/>(NoSQL Document Store)")
+        Buckets(" Cloud Storage<br/>(Media Assets)")
+    end
 
-### Phase 1 - Setup (Week 1) ✅
-- [x] Project initialization
-- [x] Firebase configuration
-- [x] Basic project structure
-- [x] TypeScript types definition
+    %% Admin Flow
+    Admin -->|Secure Login| Auth
+    Auth -.->|Valid Token| MobileApp
+    MobileApp -->|1. Upload Photos (Cam/Gallery)| Buckets
+    MobileApp -->|2. Inventory CRUD| DB
 
-### Phase 2 - Backend/Data (Week 2)
-- [ ] Firestore security rules
-- [ ] Custom React hooks
-- [ ] Firebase services
-- [ ] Initial data seeding
+    %% Customer Flow
+    Cliente -->|Browse Catalog| WebApp
+    WebApp -.->|Optimized Read| DB
+    WebApp -.->|CDN Assets| Buckets
+    
+    %% Sync
+    DB ==>|Real-time Sync (WebSockets)| WebApp
+    DB ==>|Real-time Sync| MobileApp
 
-### Phase 3 - Mobile Admin 
-- [ ] Authentication
-- [ ] Dashboard
-- [ ] Categories CRUD
-- [ ] Products CRUD
-- [ ] Image management
+    %% Styles
+    style FirebaseServices fill:#fff0f5,stroke:#d63384,stroke-width:2px
+    style MobileApp fill:#e8f0fe,stroke:#1a73e8
+    style WebApp fill:#e6fffa,stroke:#2c7a7b
 
-### Phase 4 - Public Web 
-- [ ] Responsive design
-- [ ] Homepage with categories
-- [ ] Product catalog with filters
-- [ ] Product detail page
-- [ ] Accessories section
 
-### Phase 5 - Advanced Features 
-- [ ] Discount system
-- [ ] Black Friday countdown
-- [ ] Basic analytics
-- [ ] Image optimization
-- [ ] SEO optimization
+ Tech Stack
 
-## Contributing
+ Web Client (Frontend)
 
-This is a learning project. Contributions, issues, and feature requests are welcome!
+Designed for speed and SEO.
 
-### Team Members
-- [@SebastianRodMe](https://github.com/SebastianRodMe) - Developer
-- [@Sacariel76](https://github.com/Sacariel76) - Developer
-- [@LoesssLR](https://github.com/LoesssLR) - Developer
+Framework: React 18 (Vite)
 
-## Learning Goals
+Language: TypeScript (Strict Mode)
 
-This project aims to help the team learn:
-- ✅ TypeScript in a real-world application
-- ✅ Firebase services (Firestore, Storage, Auth)
-- ✅ React best practices and hooks
-- ✅ Responsive web design
-- ✅ State management
-- ✅ Performance optimization
-- ✅ SEO fundamentals
+Styling: Tailwind CSS + Lucide Icons
 
-##  License
+Routing: React Router DOM v6
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+State Management: Custom React Hooks
 
-## Acknowledgments
+ Admin Panel (Mobile)
 
-- Inspired by real trailer sales businesses
-- Built as a learning project for educational purposes
-- Special thanks to the React and Firebase communities
+Note: Code hosted in a separate repository.
+
+Platform: Native Android
+
+Language: Kotlin
+
+UI: XML Layouts / Material Design
+
+Networking: Firebase SDK for Android
+
+ Backend & Cloud
+
+Database: Cloud Firestore (NoSQL)
+
+Authentication: Firebase Auth
+
+Storage: Cloud Storage
+
+Hosting: Firebase Hosting (CI/CD integration ready)
+
+ Gallery (Screenshots)
+
+Web: Home Hero
+
+Web: Catalog
 
 
 
-**Note**: This is a work in progress. Features and documentation will be updated as the project evolves.
+
+
+High-impact visual design
+
+Product grid & filtering
+
+Mobile: Admin Login
+
+Mobile: Product Management
+
+
+
+
+
+Secure Authentication
+
+Field inventory editing
+
+<!-- TODO: Replace later witj the placeholder links with real screenshots -->
+
+ Local Installation
+
+This repository contains the source code for the Web Application only.
+
+Prerequisites
+
+Node.js v18+
+
+Access to the Firebase project (Request credentials)
+
+Web Configuration
+
+# 1. Clone this repository
+git clone [https://github.com/SebastianRodMes/Texas-Trailers-Cr.git](https://github.com/SebastianRodMes/Texas-Trailers-Cr.git)
+
+# 2. Enter the directory
+cd texas-trailers-cr
+
+# 3. Install dependencies
+npm install
+
+# 4. Configure environment variables
+# Create .env file based on .env.example
+cp .env.example .env
+
+# 5. Run development server
+npm run dev
+
+
+Note for Mobile Developers: The Android application code is located in a separate repository to maintain modularity and meet current academic requirements. Contact the Tech Lead for access.
+
+Development Team
+
+This project was developed using agile methodologies, utilizing GitHub Projects for task management.
+
+Sebastián Rodríguez
+
+Luis
+
+Samiel
+
+Developer
+
+Developer
+
+Developer
+
+Architecture, Firebase Integration, React Core
+
+Native Android, Auth, Offline Logic
+
+Web UI/UX, Catalog, Filters & Styles
+
+
+
+
+
+
+
+<div align="center">
+<small>Developed for Universidad Técnica Nacional - ITI 2025</small>
+</div>
