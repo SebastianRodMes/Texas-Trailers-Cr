@@ -56,7 +56,7 @@ const Header = () => {
               <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-[#c41e3a] transition-all duration-300 group-hover:w-full"></span>
             </a>
           ))}
-          <Button variant="primary" className="!py-2 !px-4 !text-xs">
+          <Button variant="primary" className="py-2 px-4 text-xs">
             Contactar Vendedor
           </Button>
         </nav>
