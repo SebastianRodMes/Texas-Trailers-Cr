@@ -18,7 +18,7 @@ const CallToAction = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <Button variant="primary">Solicitar Pedido Especial</Button>
-            <Button variant="outline" className="border-zinc-700 text-zinc-300 hover:bg-zinc-800 hover:border-zinc-800">
+            <Button variant="white">
               <Phone className="mr-2" size={18} /> 8730 9666
             </Button>
           </div>

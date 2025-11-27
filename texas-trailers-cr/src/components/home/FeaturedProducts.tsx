@@ -93,7 +93,7 @@ const FeaturedProducts = () => {
         )}
 
         <div className="text-center mt-12">
-          <Button variant="secondary">Ver Catálogo Completo</Button>
+          <Button variant="primary">Ver Catálogo Completo</Button>
         </div>
       </div>
     </section>
