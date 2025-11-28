@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Phone, MapPin, Facebook, Instagram } from 'lucide-react';
 import Button from '../ui/Button';
-import imgLogo from '../../assets/logoApp.png';
-import imgLogoWhite from '../../assets/logoAppWhite.png';
+import imgLogo from '../../assets/logoAppTwo.png';
+// import imgLogoWhite from '../../assets/logoAppWhite.png';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -49,15 +49,16 @@ const Header = () => {
                 h-12 md:h-14
                 w-auto
                 object-contain
-                scale-[5.4] md:scale-[6]
+                scale-[4.8] md:scale-[6]
                 origin-left
                 transition-all duration-300
+                ml-5
               "
             />
           ) : (
             // LOGO PEQUEÑO (Navbar al hacer scroll)
             <img 
-              src={imgLogoWhite}
+              src={imgLogo}
               alt="Texas Trailers Logo Nav"
               className="
                 h-10 md:h-12
@@ -66,6 +67,7 @@ const Header = () => {
                 scale-[4.8] md:scale-[5.5]
                 origin-left
                 transition-all duration-300
+                ml-5
               "
             />
           )}
@@ -85,7 +87,7 @@ const Header = () => {
         </nav>
 
         {/* Mobile Toggle */}
-        <button className="md:hidden text-white" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+        <button className="md:hidden text-white mr-3" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
           {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
