@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Phone, MapPin, Star, Facebook, Instagram } from 'lucide-react';
+import { Menu, X, Phone, MapPin, Facebook, Instagram } from 'lucide-react';
 import Button from '../ui/Button';
+import imgLogo from '../../assets/logoApp.png';
+import imgLogoWhite from '../../assets/logoAppWhite.png';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -15,37 +17,58 @@ const Header = () => {
   return (
     <header className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-zinc-950/95 backdrop-blur-md shadow-xl py-2' : 'bg-gradient-to-b from-black/80 to-transparent py-4'}`}>
       {/* Top Bar Info (Desktop) */}
-      <div className={`hidden md:flex justify-between container mx-auto px-6 mb-2 text-xs font-medium tracking-wide transition-opacity ${isScrolled ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 text-zinc-300'}`}>
+      <div className={`hidden md:flex justify-between container mx-auto px-6 mb-2 text-sm font-medium tracking-wide transition-opacity ${isScrolled ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 text-zinc-300'}`}>
         <div className="flex gap-6">
           <span className="flex items-center gap-2 hover:text-[#c41e3a] transition-colors cursor-pointer">
-            <MapPin size={14} className="text-[#c41e3a]" /> Orotina, Ruta 27, Costa Rica
+            <MapPin size={18} className="text-[#c41e3a]" /> Orotina, Ruta 27, Costa Rica
           </span>
           <span className="flex items-center gap-2 hover:text-[#c41e3a] transition-colors cursor-pointer">
-            <Phone size={14} className="text-[#c41e3a]" /> 8730-9666
+            <Phone size={18} className="text-[#c41e3a]" /> 8730-9666
           </span>
         </div>
         <div className="flex gap-4">
           <span>Importadores Directos desde 2010</span>
           <div className="flex gap-3 border-l border-zinc-600 pl-4">
-            <Facebook size={14} className="hover:text-[#c41e3a] cursor-pointer" />
-            <Instagram size={14} className="hover:text-[#c41e3a] cursor-pointer" />
+            <Facebook size={18} className="hover:text-[#c41e3a] cursor-pointer" />
+            <Instagram size={18} className="hover:text-[#c41e3a] cursor-pointer" />
           </div>
         </div>
       </div>
 
       {/* Main Navbar */}
-      <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
-        {/* Logo */}
-        <div className="flex items-center gap-2">
-          <div className="bg-[#c41e3a] p-1.5 rounded transform skew-x-[-10deg]">
-            <Star className="text-white fill-current transform skew-x-[10deg]" size={24} />
-          </div>
-          <div className="leading-none">
-            <h1 className="text-2xl md:text-3xl font-black text-white tracking-tighter uppercase">
-              TEXAS<span className="text-[#c41e3a]">TRAILERS</span>
-            </h1>
-            <p className="text-[10px] text-zinc-400 tracking-[0.3em] uppercase hidden md:block">Costa Rica</p>
-          </div>
+      <div className={`container mx-auto px-4 md:px-6 flex justify-between items-center transition-all duration-300 ${isScrolled ? 'h-20 mt-0' : 'h-16 md:h-20 mt-8'}`}>
+
+        {/* Logo dinámico según scroll */}
+        <div className="flex items-center h-full transition-all duration-300 -ml-5">
+          {!isScrolled ? (
+            // LOGO GRANDE (Inicio de página)
+            <img 
+              src={imgLogo}
+              alt="Texas Trailers Logo Grande"
+              className="
+                h-12 md:h-14
+                w-auto
+                object-contain
+                scale-[5.4] md:scale-[6]
+                origin-left
+                transition-all duration-300
+              "
+            />
+          ) : (
+            // LOGO PEQUEÑO (Navbar al hacer scroll)
+            <img 
+              src={imgLogoWhite}
+              alt="Texas Trailers Logo Nav"
+              className="
+                h-10 md:h-12
+                w-auto
+                object-contain
+                scale-[4.8] md:scale-[5.5]
+                origin-left
+                transition-all duration-300
+              "
+            />
+          )}
         </div>
 
         {/* Desktop Nav */}

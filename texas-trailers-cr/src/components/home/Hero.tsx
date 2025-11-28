@@ -4,7 +4,7 @@ import heroBackgroundImage from '../../assets/background_hero_image.png';
 
 const Hero = () => {
   return (
-    <div className="relative h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-zinc-900">
+    <div className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden bg-zinc-900">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img
