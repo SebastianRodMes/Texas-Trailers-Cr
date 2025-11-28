@@ -1,6 +1,6 @@
 import { ChevronRight, Shield, Container, Clock } from 'lucide-react';
 import Button from '../ui/Button';
-import heroBackgroundImage from '../../assets/background_hero_image.png';
+import heroBackgroundImage from '../../assets/bgTwo.png';
 
 const Hero = () => {
   return (
