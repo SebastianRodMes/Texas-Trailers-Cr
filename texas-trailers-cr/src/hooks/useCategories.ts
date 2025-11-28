@@ -1,25 +1,6 @@
 import { useState, useEffect } from 'react';
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, query, where, orderBy } from "firebase/firestore";
-
-// NOTA: Reemplaza esto con tus credenciales reales de Firebase
-const firebaseConfig = {
-    apiKey: "AIzaSy...",
-    authDomain: "texas-trailers-cr.firebaseapp.com",
-    projectId: "texas-trailers-cr",
-    storageBucket: "texas-trailers-cr.appspot.com",
-    messagingSenderId: "...",
-    appId: "..."
-};
-
-// Inicialización segura para la demo (evita errores si no hay credenciales reales)
-let db: any;
-try {
-    const app = initializeApp(firebaseConfig);
-    db = getFirestore(app);
-} catch (e) {
-    console.warn("Firebase no pudo iniciarse (esperado en demo sin credenciales reales). Se usarán datos mock.");
-}
+import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { db } from '../config/firebase';
 
 const MOCK_CATEGORIES = [
     { id: '1', name: 'Ganaderos', slug: 'ganaderos', icon: 'cow', imageUrl: 'https://images.unsplash.com/photo-1544228088-44f144474d22?auto=format&fit=crop&q=80&w=800', order: 1 },
@@ -36,20 +17,20 @@ const useCategories = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                // INTENTO DE CARGA REAL DE FIREBASE
-                // const q = query(collection(db, "categories"), orderBy("order"), where("active", "==", true));
-                // const querySnapshot = await getDocs(q);
-                // const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                // Intenta cargar desde Firebase
+                const q = query(collection(db, "categories"), orderBy("order"));
+                const querySnapshot = await getDocs(q);
+                const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-                // if (data.length > 0) {
-                //   setCategories(data);
-                // } else {
-                throw new Error("No data"); // Forzar mock si no hay datos
-                // }
+                if (data.length > 0) {
+                    setCategories(data);
+                } else {
+                    // Si no hay datos en Firebase, usa mock
+                    setCategories(MOCK_CATEGORIES);
+                }
             } catch (error) {
                 console.log("Usando datos mock para Categorías (Modo Demo)");
-                // Simular delay de red
-                setTimeout(() => setCategories(MOCK_CATEGORIES), 800);
+                setCategories(MOCK_CATEGORIES);
             } finally {
                 setLoading(false);
             }

@@ -1,25 +1,6 @@
 import { useState, useEffect } from 'react';
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, query, where, limit } from "firebase/firestore";
-
-// NOTA: Reemplaza esto con tus credenciales reales de Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSy...",
-  authDomain: "texas-trailers-cr.firebaseapp.com",
-  projectId: "texas-trailers-cr",
-  storageBucket: "texas-trailers-cr.appspot.com",
-  messagingSenderId: "...",
-  appId: "..."
-};
-
-// Inicialización segura para la demo (evita errores si no hay credenciales reales)
-let db: any;
-try {
-  const app = initializeApp(firebaseConfig);
-  db = getFirestore(app);
-} catch (e) {
-  console.warn("Firebase no pudo iniciarse (esperado en demo sin credenciales reales). Se usarán datos mock.");
-}
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '../config/firebase';
 
 const MOCK_PRODUCTS = [
   {
@@ -76,21 +57,26 @@ const useProducts = (featuredOnly = false) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // INTENTO DE CARGA REAL
-        // let q = collection(db, "products");
-        // if (featuredOnly) {
-        //   q = query(q, where("featured", "==", true), limit(4));
-        // }
-        // const snapshot = await getDocs(q);
-        // const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        throw new Error("No data");
+        // Intenta cargar desde Firebase
+        const q = featuredOnly
+          ? query(collection(db, "products"), where("featured", "==", true))
+          : collection(db, "products");
+        const snapshot = await getDocs(q);
+        const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+        if (data.length > 0) {
+          setProducts(data);
+        } else {
+          // Si no hay datos en Firebase, usa mock
+          const mockData = featuredOnly ? MOCK_PRODUCTS.filter(p => p.featured) : MOCK_PRODUCTS;
+          setProducts(mockData);
+        }
       } catch (error) {
         console.log("Usando datos mock para Productos (Modo Demo)");
-        setTimeout(() => {
-          const data = featuredOnly ? MOCK_PRODUCTS.filter(p => p.featured) : MOCK_PRODUCTS;
-          setProducts(data);
-          setLoading(false);
-        }, 1000);
+        const mockData = featuredOnly ? MOCK_PRODUCTS.filter(p => p.featured) : MOCK_PRODUCTS;
+        setProducts(mockData);
+      } finally {
+        setLoading(false);
       }
     };
     fetchProducts();
