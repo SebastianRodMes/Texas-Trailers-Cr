@@ -38,6 +38,7 @@ export const getAllProducts = async (): Promise<Product[]> => {
         console.log(`🔍 Raw fetch: Found ${snapshot.size} total products`);
 
         const products = snapshot.docs.map(doc => convertTimestamps({ id: doc.id, ...doc.data() }));
+        console.log(products);
 
         // Sort by createdAt in JavaScript
         products.sort((a, b) => {
@@ -47,6 +48,7 @@ export const getAllProducts = async (): Promise<Product[]> => {
         });
 
         console.log(`✅ Loaded ${products.length} products`);
+        console.log(`✅ Loaded ${products} products`);
         return products;
     } catch (error) {
         console.error('Error fetching products:', error);

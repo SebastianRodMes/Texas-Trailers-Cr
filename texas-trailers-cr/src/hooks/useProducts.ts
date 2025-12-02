@@ -67,6 +67,7 @@ const useProducts = (featuredOnly = false) => {
 
         if (data.length > 0) {
           console.log(`📦 Loaded ${data.length} products from Firebase`);
+          
           setProducts(data);
         } else {
           // Fallback to mock data if Firebase is empty
