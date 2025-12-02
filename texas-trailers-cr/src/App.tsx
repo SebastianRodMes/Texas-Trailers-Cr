@@ -1,23 +1,26 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
-import Hero from './components/home/Hero';
-import CategoriesSection from './components/home/CategoriesSection';
-import FeaturedProducts from './components/home/FeaturedProducts';
-import CallToAction from './components/home/CallToAction';
+import HomePage from './pages/HomePage';
+import CatalogPage from './pages/CatalogPage';
+import FirebaseTestPage from './pages/FirebaseTestPage';
+import PageTransitionLoader from './components/ui/PageTransitionLoader';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-white font-sans text-zinc-900 selection:bg-[#c41e3a] selection:text-white">
-      <Header />
+    <BrowserRouter>
+      <PageTransitionLoader />
+      <div className="min-h-screen bg-white font-sans text-zinc-900 selection:bg-[#c41e3a] selection:text-white">
+        <Header />
 
-      <main>
-        <Hero />
-        <CategoriesSection />
-        <FeaturedProducts />
-        <CallToAction />
-      </main>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/catalogo" element={<CatalogPage />} />
+          <Route path="/test" element={<FirebaseTestPage />} />
+        </Routes>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }

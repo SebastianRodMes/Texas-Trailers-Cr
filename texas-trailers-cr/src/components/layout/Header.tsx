@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Menu, X, Phone, MapPin, Facebook, Instagram } from 'lucide-react';
 import Button from '../ui/Button';
 import imgLogo from '../../assets/logoAppTwo.png';
@@ -42,7 +43,7 @@ const Header = () => {
         <div className="flex items-center h-full transition-all duration-300 -ml-5">
           {!isScrolled ? (
             // LOGO GRANDE (Inicio de página)
-            <img 
+            <img
               src={imgLogo}
               alt="Texas Trailers Logo Grande"
               className="
@@ -57,7 +58,7 @@ const Header = () => {
             />
           ) : (
             // LOGO PEQUEÑO (Navbar al hacer scroll)
-            <img 
+            <img
               src={imgLogo}
               alt="Texas Trailers Logo Nav"
               className="
@@ -75,12 +76,22 @@ const Header = () => {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
-          {['Inicio', 'Catálogo', 'Accesorios', 'Nosotros'].map((item) => (
-            <a key={item} href="#" className="text-sm font-bold text-white uppercase tracking-wider hover:text-[#c41e3a] transition-colors relative group">
-              {item}
-              <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-[#c41e3a] transition-all duration-300 group-hover:w-full"></span>
-            </a>
-          ))}
+          <Link to="/" className="text-sm font-bold text-white uppercase tracking-wider hover:text-[#c41e3a] transition-colors relative group">
+            Inicio
+            <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-[#c41e3a] transition-all duration-300 group-hover:w-full"></span>
+          </Link>
+          <Link to="/catalogo" className="text-sm font-bold text-white uppercase tracking-wider hover:text-[#c41e3a] transition-colors relative group">
+            Catálogo
+            <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-[#c41e3a] transition-all duration-300 group-hover:w-full"></span>
+          </Link>
+          <a href="#" className="text-sm font-bold text-white uppercase tracking-wider hover:text-[#c41e3a] transition-colors relative group">
+            Accesorios
+            <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-[#c41e3a] transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="#" className="text-sm font-bold text-white uppercase tracking-wider hover:text-[#c41e3a] transition-colors relative group">
+            Nosotros
+            <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-[#c41e3a] transition-all duration-300 group-hover:w-full"></span>
+          </a>
           <Button variant="primary" className="py-2 px-4 text-xs">
             Contactar Vendedor
           </Button>
@@ -95,11 +106,21 @@ const Header = () => {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="absolute top-full left-0 w-full bg-zinc-900 border-t border-zinc-800 p-6 flex flex-col gap-4 shadow-2xl md:hidden animate-in slide-in-from-top-5">
-          {['Inicio', 'Catálogo', 'Accesorios', 'Nosotros', 'Contacto'].map((item) => (
-            <a key={item} href="#" className="text-lg font-bold text-white uppercase border-b border-zinc-800 pb-2" onClick={() => setMobileMenuOpen(false)}>
-              {item}
-            </a>
-          ))}
+          <Link to="/" className="text-lg font-bold text-white uppercase border-b border-zinc-800 pb-2" onClick={() => setMobileMenuOpen(false)}>
+            Inicio
+          </Link>
+          <Link to="/catalogo" className="text-lg font-bold text-white uppercase border-b border-zinc-800 pb-2" onClick={() => setMobileMenuOpen(false)}>
+            Catálogo
+          </Link>
+          <a href="#" className="text-lg font-bold text-white uppercase border-b border-zinc-800 pb-2" onClick={() => setMobileMenuOpen(false)}>
+            Accesorios
+          </a>
+          <a href="#" className="text-lg font-bold text-white uppercase border-b border-zinc-800 pb-2" onClick={() => setMobileMenuOpen(false)}>
+            Nosotros
+          </a>
+          <a href="#" className="text-lg font-bold text-white uppercase border-b border-zinc-800 pb-2" onClick={() => setMobileMenuOpen(false)}>
+            Contacto
+          </a>
           <Button className="w-full mt-4">Llamar Ahora</Button>
         </div>
       )}
