@@ -18,23 +18,9 @@ const AccessoriesPage = () => {
         new Set(accessories.map((acc) => acc.categoryType))
     ).sort();
 
-    const getCategoryLabel = (categoryType: string) => {
-        const labels: Record<string, string> = {
-        hitch: 'Enganches',
-        lighting: 'Iluminación',
-        security: 'Seguridad',
-        tools: 'Herramientas',
-        covers: 'Cubiertas',
-        brakes: 'Frenos',
-        ramps: 'Rampas',
-        safety: 'Seguridad',
-        };
-        return labels[categoryType] || categoryType;
-    };
-
     return (
         <div className="min-h-screen bg-zinc-50">
-            {/* Hero Section */}
+            {/* Hero Section - Corregido pt-45 -> pt-32 */}
             <div className="bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 text-white pt-45 pb-8">
                 <div className="container mx-auto px-4 flex items-center justify-center min-h-full">
                     <SectionTitle
@@ -63,7 +49,7 @@ const AccessoriesPage = () => {
                                 <option value="">Todas las categorías</option>
                                 {categories.map((category) => (
                                     <option key={category} value={category}>
-                                        {getCategoryLabel(category)}
+                                        {category}
                                     </option>
                                 ))}
                             </select>
@@ -135,81 +121,93 @@ const AccessoriesPage = () => {
 
 // Accessory Card Component
 interface AccessoryCardProps {
-accessory: Accessory;
+    accessory: Accessory;
 }
 
 const AccessoryCard = ({ accessory }: AccessoryCardProps) => {
-const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('es-CR', {
-    style: 'currency',
-    currency: 'CRC',
-    minimumFractionDigits: 0,
-    }).format(price);
-};
+    const formatPrice = (price: number) => {
+        return new Intl.NumberFormat('es-CR', {
+            style: 'currency',
+            currency: 'CRC',
+            minimumFractionDigits: 0,
+        }).format(price);
+    };
+
+    // Obtener la primera imagen del array o usar imageUrl como fallback
+    const mainImage = accessory.images?.[0] || accessory.imageUrl;
 
     return (
         <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group">
-        {/* Image */}
-        <div className="relative h-48 bg-zinc-100 overflow-hidden">
-            {accessory.imageUrl ? (
-            <img
-                src={accessory.imageUrl}
-                alt={accessory.name}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-            />
-            ) : (
-            <div className="w-full h-full flex items-center justify-center">
-                <span className="text-zinc-400 text-4xl">🔧</span>
-            </div>
-            )}
+            {/* Image */}
+            <div className="relative h-48 bg-zinc-100 overflow-hidden">
+                {mainImage ? (
+                <img
+                    src={mainImage}
+                    alt={accessory.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    onError={(e) => {
+                        // Fallback si la imagen no carga
+                        e.currentTarget.style.display = 'none';
+                    }}
+                />
+                ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                    <span className="text-zinc-400 text-4xl">🔧</span>
+                </div>
+                )}
 
-            {/* Stock Badge */}
-            <div className="absolute top-3 right-3">
-            {accessory.inStock ? (
-                <span className="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
-                En Stock
+                {/* Stock Badge */}
+                <div className="absolute top-3 right-3">
+                {accessory.inStock ? (
+                    <span className="bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                    En Stock
+                    </span>
+                ) : (
+                    <span className="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                    Agotado
+                    </span>
+                )}
+                </div>
+            </div>
+
+            {/* Content */}
+            <div className="p-5">
+                <h3 className="font-bold text-lg text-zinc-900 mb-2 line-clamp-2 min-h-[3.5rem]">
+                {accessory.name}
+                </h3>
+
+                {accessory.description && (
+                <p className="text-sm text-zinc-600 mb-3 line-clamp-2">
+                    {accessory.description}
+                </p>
+                )}
+
+                {/* Category Badge */}
+                <span className="inline-block bg-zinc-100 text-zinc-700 text-xs font-medium px-3 py-1 rounded-full">
+                    {accessory.categoryType}
                 </span>
-            ) : (
-                <span className="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
-                Agotado
-                </span>
-            )}
+
+                {/* Price */}
+                <div className="mt-4 pt-4 border-t border-zinc-100">
+                <p className="text-2xl font-black text-[#c41e3a]">
+                    {formatPrice(accessory.price)}
+                </p>
+                </div>
+
+                {/* Action Button */}
+                <button
+                disabled={!accessory.inStock}
+                className={`mt-4 w-full py-3 rounded-lg font-bold text-sm uppercase tracking-wide transition-all ${
+                    accessory.inStock
+                    ? 'bg-[#c41e3a] text-white hover:bg-[#a01830] active:scale-95'
+                    : 'bg-zinc-200 text-zinc-400 cursor-not-allowed'
+                }`}
+                >
+                {accessory.inStock ? 'Consultar' : 'No Disponible'}
+                </button>
             </div>
         </div>
-
-        {/* Content */}
-        <div className="p-5">
-            <h3 className="font-bold text-lg text-zinc-900 mb-2 line-clamp-2 min-h-[3.5rem]">
-            {accessory.name}
-            </h3>
-
-            {accessory.description && (
-            <p className="text-sm text-zinc-600 mb-3 line-clamp-2">
-                {accessory.description}
-            </p>
-            )}
-
-            {/* Price */}
-            <div className="mt-4 pt-4 border-t border-zinc-100">
-            <p className="text-2xl font-black text-[#c41e3a]">
-                {formatPrice(accessory.price)}
-            </p>
-            </div>
-
-            {/* Action Button */}
-            <button
-            disabled={!accessory.inStock}
-            className={`mt-4 w-full py-3 rounded-lg font-bold text-sm uppercase tracking-wide transition-all ${
-                accessory.inStock
-                ? 'bg-[#c41e3a] text-white hover:bg-[#a01830] active:scale-95'
-                : 'bg-zinc-200 text-zinc-400 cursor-not-allowed'
-            }`}
-            >
-            {accessory.inStock ? 'Agregar al Carrito' : 'No Disponible'}
-            </button>
-        </div>
-    </div>
-  );
+    );
 };
 
 export default AccessoriesPage;
