@@ -1,10 +1,14 @@
 import { CheckCircle2, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import useProducts from '../../hooks/useProducts';
 import Button from '../ui/Button';
 import SectionTitle from '../ui/SectionTitle';
+import ProductCardSkeleton from '../ui/ProductCardSkeleton';
+import type { Product } from '../../types/types';
 
 const FeaturedProducts = () => {
   const { products, loading } = useProducts(true);
+
   // Formateador de precio
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('es-CR', { style: 'currency', currency: 'CRC', maximumFractionDigits: 0 }).format(price);
@@ -19,17 +23,17 @@ const FeaturedProducts = () => {
         />
 
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[1, 2, 3].map(i => <div key={i} className="h-96 bg-zinc-200 animate-pulse rounded-xl"></div>)}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {[1, 2, 3, 4].map(i => <ProductCardSkeleton key={i} />)}
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {products.map((product: any) => (
+            {products.map((product: Product) => (
               <div key={product.id} className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group border border-zinc-100 flex flex-col">
                 {/* Image Area */}
                 <div className="relative h-56 overflow-hidden bg-zinc-200">
                   <img
-                    src={product.imageUrl}
+                    src={product.images[0] || 'https://via.placeholder.com/400x300?text=No+Image'}
                     alt={product.name}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
@@ -67,15 +71,17 @@ const FeaturedProducts = () => {
                       <CheckCircle2 size={10} className="text-[#c41e3a]" />
                       <span>{product.specs.axles}</span>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <CheckCircle2 size={10} className="text-[#c41e3a]" />
-                      <span>{product.specs.color}</span>
-                    </div>
+                    {product.specs.color && (
+                      <div className="flex items-center gap-1">
+                        <CheckCircle2 size={10} className="text-[#c41e3a]" />
+                        <span>{product.specs.color}</span>
+                      </div>
+                    )}
                   </div>
 
                   <div className="mt-auto flex items-end justify-between border-t border-zinc-100 pt-4">
                     <div>
-                      {product.onSale && (
+                      {product.onSale && product.salePrice && (
                         <p className="text-xs text-zinc-400 line-through mb-0.5">{formatPrice(product.price)}</p>
                       )}
                       <p className="text-xl font-black text-[#c41e3a]">
@@ -93,7 +99,9 @@ const FeaturedProducts = () => {
         )}
 
         <div className="text-center mt-12">
-          <Button variant="primary">Ver Catálogo Completo</Button>
+          <Link to="/catalogo">
+            <Button variant="primary">Ver Catálogo Completo</Button>
+          </Link>
         </div>
       </div>
     </section>
