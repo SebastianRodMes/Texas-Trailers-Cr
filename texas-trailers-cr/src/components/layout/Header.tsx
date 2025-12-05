@@ -84,10 +84,10 @@ const Header = () => {
             Catálogo
             <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-[#c41e3a] transition-all duration-300 group-hover:w-full"></span>
           </Link>
-          <a href="#" className="text-sm font-bold text-white uppercase tracking-wider hover:text-[#c41e3a] transition-colors relative group">
+          <Link to="/accesorios" className="text-sm font-bold text-white uppercase tracking-wider hover:text-[#c41e3a] transition-colors relative group">
             Accesorios
             <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-[#c41e3a] transition-all duration-300 group-hover:w-full"></span>
-          </a>
+          </Link>
           <a href="#" className="text-sm font-bold text-white uppercase tracking-wider hover:text-[#c41e3a] transition-colors relative group">
             Nosotros
             <span className="absolute -bottom-2 left-0 w-0 h-0.5 bg-[#c41e3a] transition-all duration-300 group-hover:w-full"></span>

@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import CatalogPage from './pages/CatalogPage';
 import FirebaseTestPage from './pages/FirebaseTestPage';
 import PageTransitionLoader from './components/ui/PageTransitionLoader';
+import AccesoriesPage from './pages/AccessoriesPage';
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/catalogo" element={<CatalogPage />} />
+          <Route path="/accesorios" element={<AccesoriesPage />} />
           <Route path="/test" element={<FirebaseTestPage />} />
         </Routes>
 
